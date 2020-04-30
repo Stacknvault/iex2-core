@@ -1,0 +1,23 @@
+{
+  "name": "@stacknvault/iex2-core",
+  "version": "1.0.0",
+  "description": "Package to manage the IEX2 context",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stacknvault/iex2-core.git"
+  },
+  "author": "Andoni Arostegui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stacknvault/iex2-core/issues"
+  },
+  "homepage": "https://github.com/Stacknvault/iex2-core#readme"
+}
