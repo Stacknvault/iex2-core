@@ -43,14 +43,14 @@ export function Section({name, children}){
   const { iex, ready, error, config } = useIEX();
   const {context, currentStage} = iex;
   if (!ready){
-    return <></>
+    return <div></div>
   }
   console.log("currentStage", currentStage);
   console.log("config", config);
   console.log("name", name);
   console.log("children", children);
   if (currentStage<config.sections[name]){
-    return <></>;
+    return <div></div>
   }
   // if (children.map){ 
   //   return children.map(child => {
