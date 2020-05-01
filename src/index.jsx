@@ -1,5 +1,10 @@
 import React, { useState, useEffect, cloneElement } from 'react';
-
+export * from './sections/GracefulHeroBanner';
+export * from './sections/ImageWall';
+export * from './sections/LogoBanner';
+export * from './sections/ProvisionContractAgreement';
+export * from './sections/SimpleDataTable';
+export * from './sections/SimpleHeroBanner';
 export function useIEX() {
   const [ iex, setIEX ] = useState({});
   const [ ready, setReady ] = useState(false);
@@ -45,20 +50,10 @@ export function Section({name, children}){
   if (!ready){
     return <div></div>
   }
-  console.log("currentStage", currentStage);
-  console.log("config", config);
-  console.log("name", name);
-  console.log("children", children);
-  if (currentStage<config.sections[name]){
+  
+  if (config && config.sections && config.sections[name] && currentStage<config.sections[name]){
     return <div></div>
   }
-  // if (children.map){ 
-  //   return children.map(child => {
-  //   return cloneElement(child, { ...child.props, name: 'x', iex, ready, error, config })
-  //   });
-  // }else{
-  //   return children;
-  // }
   return cloneElement(children, { ...children.props, name: 'x', iex, ready, error, config })
 }
 
