@@ -3,7 +3,7 @@ const rootUrl = 'https://4fkovo7dbc.execute-api.eu-central-1.amazonaws.com';
 const fs = require('fs');
 const publish = (templateId, onComplete, onError) => {
 
-    const stream = fs.createReadStream(__dirname + '/../tmp/template.zip');
+    const stream = fs.createReadStream(process.env.INIT_CWD + '/tmp/template.zip');
     stream.on('error', console.log);
     axios({
         method: templateId?'POST':'PUT',
@@ -28,8 +28,8 @@ const publish = (templateId, onComplete, onError) => {
 const packageAndPublish=(templateId)=>{
   var fs = require('fs');
   var archiver = require('archiver');
-  fs.mkdir(__dirname + '/../tmp', ()=>{});
-  var output = fs.createWriteStream(__dirname + '/../tmp/template.zip');
+  fs.mkdir(process.env.INIT_CWD + '/tmp', ()=>{});
+  var output = fs.createWriteStream(process.env.INIT_CWD + '/tmp/template.zip');
   var archive = archiver('zip', {
     zlib: { level: 9 } // Sets the compression level.
   });
@@ -56,7 +56,7 @@ const packageAndPublish=(templateId)=>{
       throw err;
   });
   archive.pipe(output);
-  archive.directory(__dirname + '/../build/', false);
+  archive.directory(process.env.INIT_CWD + '/build/', false);
 
   archive.finalize();
 }
