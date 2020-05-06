@@ -1,6 +1,6 @@
 {
   "name": "@stacknvault/iex2-core",
-  "version": "1.1.7",
+  "version": "1.1.14",
   "description": "Package to manage the IEX2 context",
   "author": "Andoni Arostegui",
   "license": "MIT",

@@ -124,14 +124,14 @@ const getContext = (contactId, entityId, companyId, onComplete, onError) => {
 }
 
 const usage=()=>{
-  console.log('\nUSAGE:\nnpm run expose -- <publish|render|set-stage|get-context>  -<option name>=<option value>');
+  console.log('\nUSAGE:\nnpm run expose -- <publish|render|set-stage|get-context>  --<option name>=<option value>');
   console.log('\nFor help, run:');
   console.log('npm run expose -- help');
   console.log('\nor');
   console.log('npm run expose -- <command> help\n\n');
 }
 const usagePublish=()=>{
-  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ -template-id=<your own template id> ]\n\n');
+  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ]\n\n');
   console.log('A custom template-id can be used.\n\n');
 }
 const usageRender=()=>{

@@ -7,7 +7,7 @@ Apart from the regular yarn scripts, in the project directory, you can run:
 ## `yarn run expose -- help`
 >
 >__USAGE__:
->`yarn run expose -- <publish|render|set-stage|get-context>  -<option name>=<option value>`
+>`yarn run expose -- <publish|render|set-stage|get-context>  --<option name>=<option value>`
 >
 >For help, run:
 >
@@ -22,7 +22,7 @@ Apart from the regular yarn scripts, in the project directory, you can run:
 >Publishes a template.
 >
 >__USAGE__:
->`yarn run expose -- publish  [ -template-id=<your own template id> ]`
+>`yarn run expose -- publish  [ --template-id=<your own template id> ]`
 >
 >A custom template-id can be used.
 >
