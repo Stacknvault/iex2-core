@@ -160,14 +160,17 @@ const usagePublish=()=>{
 }
 const usageRender=()=>{
   console.log('\nRenders a template for a given contact-id, entity-id and optional company-id.\n\nUSAGE:\nnpm run expose -- render [--render-id=<your own render id> ] --template-id=<template id> --contact-id=<contact id> --entity-id=<entity id> [ --company-id=<company id> ]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
   console.log('If company id is not specified, it will be taken from the sender\n\n');
   console.log('A custom render-id can be used.\n\n');
 }
 const usageSetStage=()=>{
   console.log('\nSets the stage of a rendered template\n\nUSAGE:\nnpm run expose -- set-stage --render-id=<render id> --stage=<stage number starting from 0>\n\n');
+  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'\n\n');
 }
 const usageGetContext=()=>{
   console.log('\nGets the context for a given contact-id, entity-id and optional company-id and it writes it to public/assets/context/context.json.\n\nUSAGE:\nnpm run expose -- get-context --contact-id=<contact id> --entity-id=<entity id> --stage=<stage number starting from 0> [ --company-id=<company id> ]\n\n');
+  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'\n\n');
   console.log('If company id is not specified, it will be taken from the sender\n\n');
 }
 
@@ -185,20 +188,20 @@ if (args._.length===0){
   console.error('Command is missing');
   usage();
 }
-var repeat=false;
-if (Object.keys(args).length === 1 && args._.length === 1){
+const command=args._[0];
+if (
+  (Object.keys(args).length === 1 && args._.length === 1) ||
+  ((command === 'set-stage' || command === 'get-context') && Object.keys(args).length === 2 && args._.length === 1)
+){
   console.log('getting command data from '+lastRunFile);
-  repeat=true;
   const _=args._;
-  args=lastRun;
+  args={...lastRun, ...args};
   args._=_;
   console.log(args)
 }
 
 
-const command=args._[0];
 
-//console.log("The command is "+cmd);
 if (command === 'publish'){
   if (args._[1]==='help'){
     usagePublish();
