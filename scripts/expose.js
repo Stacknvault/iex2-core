@@ -5,7 +5,14 @@ const fs = require('fs');
 const opn = require('opn');
 
 const contextPath='public/assets/context/context.json';
+const lastRunFile='.lastRun';
 
+const updateLastRunFile=(args)=>{
+  if (fs.existsSync(lastRunFile)){
+    fs.unlinkSync(lastRunFile)
+  }
+  fs.writeFileSync(lastRunFile, JSON.stringify(args, null, 2))  
+}
 const writeContext = (data)=>{
   if (fs.existsSync(contextPath)){
     fs.unlinkSync(contextPath)
@@ -149,7 +156,7 @@ const usage=()=>{
 }
 const usagePublish=()=>{
   console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ]\n\n');
-  console.log('A custom template-id can be used.\n\n');
+  console.log('If no template id is specified, the last one is used.\n\n');
 }
 const usageRender=()=>{
   console.log('\nRenders a template for a given contact-id, entity-id and optional company-id.\n\nUSAGE:\nnpm run expose -- render [--render-id=<your own render id> ] --template-id=<template id> --contact-id=<contact id> --entity-id=<entity id> [ --company-id=<company id> ]\n\n');
@@ -164,9 +171,12 @@ const usageGetContext=()=>{
   console.log('If company id is not specified, it will be taken from the sender\n\n');
 }
 
-
-// console.log('Packaging template', process.argv);
-const args = require('minimist')(process.argv.slice(2));
+var lastRun={
+}
+if (fs.existsSync(lastRunFile)) {
+  lastRun=JSON.parse(fs.readFileSync(lastRunFile));
+}
+var args = require('minimist')(process.argv.slice(2));
 if (!process.env.TOKEN){
   console.error('TOKEN environment variable is missing');
   return;
@@ -175,6 +185,17 @@ if (args._.length===0){
   console.error('Command is missing');
   usage();
 }
+var repeat=false;
+if (Object.keys(args).length === 1 && args._.length === 1){
+  console.log('getting command data from '+lastRunFile);
+  repeat=true;
+  const _=args._;
+  args=lastRun;
+  args._=_;
+  console.log(args)
+}
+
+
 const command=args._[0];
 
 //console.log("The command is "+cmd);
@@ -185,9 +206,11 @@ if (command === 'publish'){
   }
   const templateId=args['template-id'];
   if (!templateId){
-    console.error('template-id missing. Will make one up');
+    console.error('template-id missing.');
+    return;
   }
   packageAndPublish(templateId);
+  updateLastRunFile(args);
 }else if (command === 'render'){
   if (args._[1]==='help'){
     usageRender();
@@ -218,8 +241,11 @@ if (command === 'publish'){
   }
   render(templateId, renderId, contactId, entityId, companyId, (data)=>{
     console.log('Rendeded with id '+data.id+'. Opening '+data.url);
+    args={...args,'render-id': data.id};
+    console.log(args);
     opn(data.url);
     writeContext(data.context);
+    updateLastRunFile(args);
   }, (errorCode, message)=>console.log('Error', errorCode, message));
 }else if (command === 'set-stage'){
   if (args._[1]==='help'){
@@ -240,6 +266,7 @@ if (command === 'publish'){
     console.log('Set the stage to '+stage+' to context for render with id '+data.id+'. Opening '+data.url);
     opn(data.url);
     writeContext(data.context);
+    updateLastRunFile(args);
   }, (errorCode, message)=>console.log('Error', errorCode, message))
 }else if (command === 'get-context'){
   if (args._[1]==='help'){
@@ -270,6 +297,7 @@ if (command === 'publish'){
     // console.log(JSON.stringify(data, null, 2));
     // return;
     writeContext(data);
+    updateLastRunFile(args);
   }, (errorCode, message)=>console.log('Error', errorCode, message));
 }else if (command === 'help'){
   usage();
@@ -277,7 +305,6 @@ if (command === 'publish'){
   console.error('Unknown command '+command);
   usage();
 }
-
   
 
 

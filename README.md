@@ -24,7 +24,7 @@ Apart from the regular yarn scripts, in the project directory, you can run:
 >__USAGE__:
 >`yarn run expose -- publish  [ --template-id=<your own template id> ]`
 >
->A custom template-id can be used.
+>If no template id is specified, the last one is used.
 >
 ## `yarn run expose -- render help`
 >
