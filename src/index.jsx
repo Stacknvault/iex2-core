@@ -52,7 +52,7 @@ export function Section({name, children}){
     return <div></div>
   }
   
-  if (config && config.sections && config.sections[currentStage] && !config.sections[currentStage].includes(name)){
+  if (config && config.stages && config.stages[currentStage] && !config.stages[currentStage].includes(name)){
     return <div></div>
   }
   return cloneElement(children, { ...children.props, name: name, iex, ready, error, config })
