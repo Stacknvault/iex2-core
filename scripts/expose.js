@@ -156,7 +156,7 @@ const usage=()=>{
 }
 const usagePublish=()=>{
   console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ]\n\n');
-  console.log('If no template id is specified, the last one is used.\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
 }
 const usageRender=()=>{
   console.log('\nRenders a template for a given contact-id, entity-id and optional company-id.\n\nUSAGE:\nnpm run expose -- render [--render-id=<your own render id> ] --template-id=<template id> --contact-id=<contact id> --entity-id=<entity id> [ --company-id=<company id> ]\n\n');
