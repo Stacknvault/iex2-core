@@ -7,7 +7,7 @@ const GracefulHeroBanner = ()=>{
     );
 }
 
-GracefulHeroBanner.PropTypes={
+GracefulHeroBanner.propTypes={
     className: PropTypes.string
 }
 export default GracefulHeroBanner;
