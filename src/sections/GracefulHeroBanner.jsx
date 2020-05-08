@@ -1,16 +1,13 @@
 import React from 'react';
-import { Section } from "..";
+import PropTypes from 'prop-types';
 
-function GracefulHeroBannerSection({className, iex, ready, error, config}){
+const GracefulHeroBanner = ()=>{
     return (
-        <div className={className}>The GracefulHeroBanner section</div>
+        <div>The GracefulHeroBanner section</div>
     );
 }
-export function GracefulHeroBanner({className}){
-  return (
-      <Section name="GracefulHeroBanner">
-          <GracefulHeroBannerSection className={className}/>
-      </Section>
-  )
-}
 
+GracefulHeroBanner.PropTypes={
+    className: PropTypes.string
+}
+export default GracefulHeroBanner;

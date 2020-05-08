@@ -1,7 +1,7 @@
-import React from 'react';
-import { Section } from "..";
-
-function ProvisionContractAgreementSection({className, iex, ready, error, config}){
+import React, {useContext} from 'react';
+import { ContextStore } from '../Stage'
+const ProvisionContractAgreementSection = ()=>{
+    const {iex, config, ready, error, className} = useContext(ContextStore);
     if (ready){
         const agreement=iex.context.company.legislationTexts.filter(item=>item.legislationTextName=='Widerrufsbelehrung')[0];
         return (
@@ -20,11 +20,4 @@ function ProvisionContractAgreementSection({className, iex, ready, error, config
         return(<div></div>);
     }
 }
-export function ProvisionContractAgreement({className}){
-  return (
-      <Section name="ProvisionContractAgreement">
-          <ProvisionContractAgreementSection className={className}/>
-      </Section>
-  )
-}
-
+export default ProvisionContractAgreementSection;
