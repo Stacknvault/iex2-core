@@ -1,6 +1,6 @@
 {
   "name": "@stacknvault/iex2-core",
-  "version": "1.1.30",
+  "version": "1.1.34",
   "description": "Package to manage the IEX2 context",
   "author": "Andoni Arostegui",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
     "archiver": "^4.0.1",
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "opn": "^6.0.0"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",

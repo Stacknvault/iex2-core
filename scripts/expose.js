@@ -1,6 +1,23 @@
 const axios = require('axios');
 const rootUrl = 'https://4fkovo7dbc.execute-api.eu-central-1.amazonaws.com';
 const fs = require('fs');
+
+const opn = require('opn');
+
+const contextPath='public/assets/context/context.json';
+
+const writeContext = (data)=>{
+  if (fs.existsSync(contextPath)){
+    fs.unlinkSync(contextPath)
+  }
+  fs.writeFile(contextPath, JSON.stringify(data, null, 2), function (err) {
+    if (err){
+      console.log(err);
+      return;
+    }
+    console.log('Context written to '+contextPath);
+  });
+}
 const publish = (templateId, onComplete, onError) => {
 
     const stream = fs.createReadStream(process.env.INIT_CWD + '/tmp/template.zip');
@@ -199,7 +216,11 @@ if (command === 'publish'){
   if (!companyId){
     console.log('company-id missing, will get it from sender');
   }
-  render(templateId, renderId, contactId, entityId, companyId, (data)=>console.log(JSON.stringify(data, null, 2)), (errorCode, message)=>console.log('Error', errorCode, message));
+  render(templateId, renderId, contactId, entityId, companyId, (data)=>{
+    console.log('Rendeded with id '+data.id+'. Opening '+data.url);
+    opn(data.url);
+    writeContext(data.context);
+  }, (errorCode, message)=>console.log('Error', errorCode, message));
 }else if (command === 'set-stage'){
   if (args._[1]==='help'){
     usageSetStage();
@@ -215,7 +236,11 @@ if (command === 'publish'){
     console.error('stage missing');
     return;
   }
-  setStage(renderId, stage, (data)=>console.log(JSON.stringify(data, null, 2)), (errorCode, message)=>console.log('Error', errorCode, message))
+  setStage(renderId, stage, (data)=>{
+    console.log('Set the stage to '+stage+' to context for render with id '+data.id+'. Opening '+data.url);
+    opn(data.url);
+    writeContext(data.context);
+  }, (errorCode, message)=>console.log('Error', errorCode, message))
 }else if (command === 'get-context'){
   if (args._[1]==='help'){
     usageGetContext();
@@ -244,17 +269,7 @@ if (command === 'publish'){
     data.currentStage=stage;
     // console.log(JSON.stringify(data, null, 2));
     // return;
-    const path='public/assets/context/context.json';
-    if (fs.existsSync(path)){
-      fs.unlinkSync(path)
-    }
-    fs.writeFile(path, JSON.stringify(data, null, 2), function (err) {
-      if (err){
-        console.log(err);
-        return;
-      }
-      console.log('Context written to '+path);
-    });
+    writeContext(data);
   }, (errorCode, message)=>console.log('Error', errorCode, message));
 }else if (command === 'help'){
   usage();
