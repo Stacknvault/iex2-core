@@ -188,17 +188,12 @@ if (args._.length===0){
   console.error('Command is missing');
   usage();
 }
+
 const command=args._[0];
-if (
-  (Object.keys(args).length === 1 && args._.length === 1) ||
-  ((command === 'set-stage' || command === 'get-context') && Object.keys(args).length === 2 && args._.length === 1)
-){
-  console.log('getting command data from '+lastRunFile);
-  const _=args._;
-  args={...lastRun, ...args};
-  args._=_;
-  console.log(args)
-}
+const _=args._;
+args={...lastRun, ...args};
+args._=_;
+console.log(args);
 
 
 
