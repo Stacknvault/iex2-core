@@ -46,9 +46,7 @@ const Stage = ({name, children, level})=>{
   }
   return (
     <ContextStore.Provider value={{iex, config, ready, error}}>
-      <div>
-        {cloneElement(children)}
-      </div>
+      {cloneElement(children)}
     </ContextStore.Provider>
   )
 }
