@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { ContextStore } from '../Stage'
-const ProvisionContractAgreementSection = ()=>{
-    const {iex, config, ready, error, className} = useContext(ContextStore);
+const ProvisionContractAgreementSection = ({className})=>{
+    const {iex, config, ready, error} = useContext(ContextStore);
     if (ready){
         const agreement=iex.context.company.legislationTexts.filter(item=>item.legislationTextName=='Widerrufsbelehrung')[0];
         return (

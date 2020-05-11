@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function ImageWall(){
+export default function ImageWall({className}){
     return (
-        <div>The ImageWall section</div>
+        <div className={className}>The ImageWall section</div>
     );
 }

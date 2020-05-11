@@ -2,7 +2,9 @@ const axios = require('axios');
 const rootUrl = 'https://4fkovo7dbc.execute-api.eu-central-1.amazonaws.com';
 const fs = require('fs');
 
-const opn = require('opn');
+// const open = require('open');
+const openBrowser = require('react-dev-utils/openBrowser');
+
 
 const contextPath='public/assets/context/context.json';
 const lastRunFile='.lastRun';
@@ -241,7 +243,8 @@ if (command === 'publish'){
     console.log('Rendeded with id '+data.id+'. Opening '+data.url);
     args={...args,'render-id': data.id};
     console.log(args);
-    opn(data.url);
+    // open(data.url);
+    openBrowser(data.url);
     writeContext(data.context);
     updateLastRunFile(args);
   }, (errorCode, message)=>console.log('Error', errorCode, message));
@@ -262,7 +265,8 @@ if (command === 'publish'){
   }
   setStage(renderId, stage, (data)=>{
     console.log('Set the stage to '+stage+' to context for render with id '+data.id+'. Opening '+data.url);
-    opn(data.url);
+    // open(data.url);
+    openBrowser(data.url);
     writeContext(data.context);
     updateLastRunFile(args);
   }, (errorCode, message)=>console.log('Error', errorCode, message))

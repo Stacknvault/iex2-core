@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GracefulHeroBanner = ()=>{
+const GracefulHeroBanner = ({className})=>{
     return (
-        <div>The GracefulHeroBanner section</div>
+        <div className={className}>The GracefulHeroBanner section</div>
     );
 }
 

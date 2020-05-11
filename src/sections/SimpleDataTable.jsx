@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function SimpleDataTable(){
+export default function SimpleDataTable({className}){
     return (
-        <div>The SimpleDataTable section</div>
+        <div className={className}>The SimpleDataTable section</div>
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function SimpleHeroBanner(){
+export default function SimpleHeroBanner({className}){
     return (
-        <div>The SimpleHeroBanner section</div>
+        <div className={className}>The SimpleHeroBanner section</div>
     );
 }

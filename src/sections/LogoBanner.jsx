@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function LogoBanner(){
+export default function LogoBanner({className}){
     return (
-        <div>The logo section</div>
+        <div className={className}>The logo section</div>
     );
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 export const ContextStore = React.createContext({});
 
-const Stage = ({name, children, level})=>{
+const Stage = (props)=>{
+    const {name, children, level} = props
     const [ iex, setIEX ] = useState({});
     const [ ready, setReady ] = useState(false);
     const [ error, setError ] = useState(null);
@@ -44,9 +45,13 @@ const Stage = ({name, children, level})=>{
   if (""+currentStage!==level){
     return <div></div>
   }
+  const childrenWithProps = React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, props);
+  });
   return (
     <ContextStore.Provider value={{iex, config, ready, error}}>
-      {cloneElement(children)}
+      {/* {cloneElement(children)} */}
+      {childrenWithProps}
     </ContextStore.Provider>
   )
 }
