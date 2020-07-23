@@ -209,11 +209,11 @@ if (command === 'publish'){
     console.error('template-id missing.');
     return;
   }
+  const name=args['name'];
   if (!name){
     console.error('name missing.');
     return;
   }
-  const templateId=args['name'];
   packageAndPublish(templateId, name);
   updateLastRunFile(args);
 }else if (command === 'render'){

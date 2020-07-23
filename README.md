@@ -22,7 +22,7 @@ Apart from the regular yarn scripts, in the project directory, you can run:
 >Publishes a template.
 >
 >__USAGE__:
->`yarn run expose -- publish  [ --template-id=<your own template id> ]`
+>`yarn run expose -- publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"]`
 >
 >If no other args are specified, they will be taken from .lastRun
 >
