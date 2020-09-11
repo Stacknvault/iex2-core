@@ -1,6 +1,8 @@
 const axios = require('axios');
-const rootUrl = 'https://4fkovo7dbc.execute-api.eu-central-1.amazonaws.com';
+const stage = process.env.REACT_APP_STAGE || 'production';
+const rootUrl = `https://iex2-expose-lambda.${stage}.sf.flowfact-dev.cloud`;
 const fs = require('fs');
+
 
 // const open = require('open');
 const openBrowser = require('react-dev-utils/openBrowser');
@@ -104,7 +106,8 @@ const render = (templateId, renderId, contactId, entityId, companyId, onComplete
           return;
       }
       onComplete(res.data);            
-   });
+   })
+   .catch(e=>console.log(e));
 
 }
 
@@ -124,7 +127,8 @@ const setStage = (renderId, stage, onComplete, onError) => {
           return;
       }
       onComplete(res.data);            
-   });
+   })
+   .catch(e=>console.log(e));
 
 }
 
@@ -145,7 +149,8 @@ const getContext = (contactId, entityId, companyId, onComplete, onError) => {
           return;
       }
       onComplete(res.data);            
-   });
+   })
+   .catch(e=>console.log(e));
 
 }
 
