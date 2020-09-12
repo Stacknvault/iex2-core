@@ -1,6 +1,7 @@
 const axios = require('axios');
 const stage = process.env.REACT_APP_STAGE || 'production';
-const rootUrl = `https://iex2-expose-lambda.${stage}.sf.flowfact-dev.cloud`;
+const devProd = stage === 'production' || stage === 'staging' ? 'prod' : 'dev';
+const rootUrl = `https://iex2-expose-lambda.${stage}.sf.flowfact-${devProd}.cloud`;
 const fs = require('fs');
 
 
