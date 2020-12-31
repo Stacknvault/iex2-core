@@ -30,7 +30,7 @@ const writeContext = (data)=>{
     console.log('Context written to '+contextPath);
   });
 }
-const publish = (templateId, name, onComplete, onError) => {
+const publish = (templateId, name, isGlobal, onComplete, onError) => {
 
     const stream = fs.createReadStream(process.env.INIT_CWD + '/tmp/template.zip');
     stream.on('error', console.log);
@@ -54,7 +54,7 @@ const publish = (templateId, name, onComplete, onError) => {
      });
 
 }
-const packageAndPublish=(templateId, name)=>{
+const packageAndPublish=(templateId, name, isGlobal)=>{
   var fs = require('fs');
   var archiver = require('archiver');
   fs.mkdir(process.env.INIT_CWD + '/tmp', ()=>{});
@@ -66,7 +66,7 @@ const packageAndPublish=(templateId, name)=>{
       console.log(archive.pointer() + ' total bytes');
       console.log('archiver has been finalized and the output file descriptor has closed.');
       //now let's publish it
-      publish(templateId, name, (result)=>console.log(JSON.stringify(result)), (errorCode, message)=>console.log('Error', errorCode, message));
+      publish(templateId, name, isGlobal, (result)=>console.log(JSON.stringify(result)), (errorCode, message)=>console.log('Error', errorCode, message));
   });
 
   output.on('end', function() {
@@ -163,7 +163,7 @@ const usage=()=>{
   console.log('npm run expose -- <command> help\n\n');
 }
 const usagePublish=()=>{
-  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"]\n\n');
+  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"] [--global]\n\n');
   console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
 }
 const usageRender=()=>{
@@ -220,7 +220,7 @@ if (command === 'publish'){
     console.error('name missing.');
     return;
   }
-  packageAndPublish(templateId, name);
+  packageAndPublish(templateId, name, args['global']);
   updateLastRunFile(args);
 }else if (command === 'render'){
   if (args._[1]==='help'){
