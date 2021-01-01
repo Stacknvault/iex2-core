@@ -34,9 +34,10 @@ const publish = (templateId, name, isGlobal, onComplete, onError) => {
 
     const stream = fs.createReadStream(process.env.INIT_CWD + '/tmp/template.zip');
     stream.on('error', console.log);
+    const queryString = '?name='+name+(isGlobal?'&isGlobal=true':'');
     axios({
         method: templateId?'POST':'PUT',
-        url: templateId ? (rootUrl + '/template/'+templateId+'?name='+name):(rootUrl + '/template?name='+name),
+        url: templateId ? (rootUrl + '/template/'+templateId+queryString):(rootUrl + '/template'+queryString),
         headers: {
           'Content-Type': 'application/zip',
         //   'Content-Length': size,
@@ -88,6 +89,42 @@ const packageAndPublish=(templateId, name, isGlobal)=>{
   archive.directory(process.env.INIT_CWD + '/build/', false);
 
   archive.finalize();
+}
+
+const deleteTemplate=(templateId, isGlobal)=>{
+    const queryString = (isGlobal?'?isGlobal=true':'');
+    axios({
+        method: 'DELETE',
+        url: rootUrl + '/template/'+templateId+queryString,
+        headers: {
+          'token': process.env.TOKEN
+        },
+      })
+      .then(res => { // then print response status
+        console.log(res.statusText)
+        if (res.status!==200){
+            onError(res.statusCode, 'Error deleting item')
+            return;
+        }
+     });
+}
+
+const listTemplate=(isGlobal)=>{
+  const queryString = (isGlobal?'?isGlobal=true':'');
+  axios({
+      method: 'GET',
+      url: rootUrl + '/template'+queryString,
+      headers: {
+        'token': process.env.TOKEN
+      },
+    })
+    .then(res => { // then print response status
+      console.log(res.statusText)
+      if (res.status!==200){
+          onError(res.statusCode, 'Error listing templates')
+          return;
+      }
+   });
 }
 
 const render = (templateId, renderId, contactId, entityId, companyId, onComplete, onError) => {
@@ -156,7 +193,7 @@ const getContext = (contactId, entityId, companyId, onComplete, onError) => {
 }
 
 const usage=()=>{
-  console.log('\nUSAGE:\nnpm run expose -- <publish|render|set-stage|get-context>  --<option name>=<option value>');
+  console.log('\nUSAGE:\nnpm run expose -- <publish|delete|list|render|set-stage|get-context>  --<option name>=<option value>');
   console.log('\nFor help, run:');
   console.log('npm run expose -- help');
   console.log('\nor');
@@ -164,6 +201,14 @@ const usage=()=>{
 }
 const usagePublish=()=>{
   console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"] [--global]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+}
+const usageDelete=()=>{
+  console.log('\Deletes a template.\n\nUSAGE:\nnpm run expose -- delete  [ --template-id=<your own template id> ] [--global]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+}
+const usageList=()=>{
+  console.log('\Lists templates.\n\nUSAGE:\nnpm run expose -- list [--global]\n\n');
   console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
 }
 const usageRender=()=>{
@@ -196,7 +241,7 @@ if (args._.length===0){
   console.error('Command is missing');
   usage();
 }
-
+const isGlobal=args['global'];// we do before visiting lastRun, we won't get --global from there
 const command=args._[0];
 const _=args._;
 args={...lastRun, ...args};
@@ -220,9 +265,28 @@ if (command === 'publish'){
     console.error('name missing.');
     return;
   }
-  packageAndPublish(templateId, name, args['global']);
+  packageAndPublish(templateId, name, isGlobal);
   updateLastRunFile(args);
-}else if (command === 'render'){
+}else if (command === 'delete'){
+  if (args._[1]==='help'){
+    usageDelete();
+    return;
+  }
+  const templateId=args['template-id'];
+  if (!templateId){
+    console.error('template-id missing.');
+    return;
+  }
+  deleteTemplate(templateId, isGlobal);
+  updateLastRunFile(args);
+}else if (command === 'list'){
+  if (args._[1]==='help'){
+    usageList();
+    return;
+  }
+  listTemplate(isGlobal);
+  updateLastRunFile(args);
+} else if (command === 'render'){
   if (args._[1]==='help'){
     usageRender();
     return;
