@@ -124,6 +124,7 @@ const listTemplate=(isGlobal)=>{
           onError(res.statusCode, 'Error listing templates')
           return;
       }
+      console.log(JSON.stringify(res.data, null, 2))
    });
 }
 
@@ -246,7 +247,7 @@ const command=args._[0];
 const _=args._;
 args={...lastRun, ...args};
 args._=_;
-console.log(args);
+// console.log(args);
 
 
 
@@ -317,7 +318,7 @@ if (command === 'publish'){
   render(templateId, renderId, contactId, entityId, companyId, (data)=>{
     console.log('Rendeded with id '+data.id+'. Opening '+data.url);
     args={...args,'render-id': data.id};
-    console.log(args);
+    // console.log(args);
     // open(data.url);
     openBrowser(data.url);
     writeContext(data.context);
