@@ -124,7 +124,14 @@ const listTemplate=(isGlobal)=>{
           onError(res.statusCode, 'Error listing templates')
           return;
       }
-      console.log(JSON.stringify(res.data, null, 2))
+      const mappedData = {
+        ...res.data,
+        entries: res.data.entries.map(item=>({
+          id: item.id,
+          name: item.name && item.name.values && item.name.values.length>0 && item.name.values[0],
+        }))
+      };
+      console.log(JSON.stringify(mappedData, null, 2))
    });
 }
 
