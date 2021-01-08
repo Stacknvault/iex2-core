@@ -201,37 +201,37 @@ const getContext = (contactId, entityId, companyId, onComplete, onError) => {
 }
 
 const usage=()=>{
-  console.log('\nUSAGE:\nnpm run expose -- <publish|delete|list|render|set-stage|get-context>  --<option name>=<option value>');
+  console.log('\nUSAGE:\nnpm run expose <publish|delete|list|render|set-stage|get-context>  --<option name>=<option value>');
   console.log('\nFor help, run:');
-  console.log('npm run expose -- help');
+  console.log('npm run expose help');
   console.log('\nor');
-  console.log('npm run expose -- <command> help\n\n');
+  console.log('npm run expose <command> help\n\n');
 }
 const usagePublish=()=>{
-  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose -- publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"] [--global]\n\n');
-  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\nPublishes a template.\n\nUSAGE:\nnpm run expose publish  [ --template-id=<your own template id> ] [ --name="<the name of the template>"] [--global]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
 }
 const usageDelete=()=>{
-  console.log('\Deletes a template.\n\nUSAGE:\nnpm run expose -- delete  [ --template-id=<your own template id> ] [--global]\n\n');
-  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\Deletes a template.\n\nUSAGE:\nnpm run expose delete  [ --template-id=<your own template id> ] [--global]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
 }
 const usageList=()=>{
-  console.log('\Lists templates.\n\nUSAGE:\nnpm run expose -- list [--global]\n\n');
-  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\Lists templates.\n\nUSAGE:\nnpm run expose list [--global]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
 }
 const usageRender=()=>{
-  console.log('\nRenders a template for a given contact-id, entity-id and optional company-id.\n\nUSAGE:\nnpm run expose -- render [--render-id=<your own render id> ] --template-id=<template id> --contact-id=<contact id> --entity-id=<entity id> [ --company-id=<company id> ]\n\n');
-  console.log('If no other args are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\nRenders a template for a given contact-id, entity-id and optional company-id.\n\nUSAGE:\nnpm run expose render [--render-id=<your own render id> ] --template-id=<template id> --contact-id=<contact id> --entity-id=<entity id> [ --company-id=<company id> ]\n\n');
+  console.log('If no other args are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
   console.log('If company id is not specified, it will be taken from the sender\n\n');
   console.log('A custom render-id can be used.\n\n');
 }
 const usageSetStage=()=>{
-  console.log('\nSets the stage of a rendered template\n\nUSAGE:\nnpm run expose -- set-stage --render-id=<render id> --stage=<stage number starting from 0>\n\n');
-  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\nSets the stage of a rendered template\n\nUSAGE:\nnpm run expose set-stage --render-id=<render id> --stage=<stage number starting from 0>\n\n');
+  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
 }
 const usageGetContext=()=>{
-  console.log('\nGets the context for a given contact-id, entity-id and optional company-id and it writes it to public/assets/context/context.json.\n\nUSAGE:\nnpm run expose -- get-context --contact-id=<contact id> --entity-id=<entity id> --stage=<stage number starting from 0> [ --company-id=<company id> ]\n\n');
-  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'\n\n');
+  console.log('\nGets the context for a given contact-id, entity-id and optional company-id and it writes it to public/assets/context/context.json.\n\nUSAGE:\nnpm run expose get-context --contact-id=<contact id> --entity-id=<entity id> --stage=<stage number starting from 0> [ --company-id=<company id> ]\n\n');
+  console.log('If no other args than the stage are specified, they will be taken from '+lastRunFile+'. The only flag not taken from .lastRun will be --global\n\n');
   console.log('If company id is not specified, it will be taken from the sender\n\n');
 }
 
