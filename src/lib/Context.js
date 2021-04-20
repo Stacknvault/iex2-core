@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {Fragment, useContext, useEffect, useState} from 'react'
 import jp from 'jsonpath'
 
 const appStage = process.env.REACT_APP_STAGE || 'production'
@@ -143,7 +143,7 @@ const Context = ({children}) => {
 
   useEffect(fetchContext, [])
   if (!ready) {
-    return <></>
+    return <Fragment/>
   }
   const {stage} = iex
   
@@ -163,9 +163,9 @@ const Context = ({children}) => {
 const Stage = ({level, children}) => {
   const {iex, ready} = useContext(ContextStore)
   const {stage} = iex
-  if (!ready) return <></>
-  if ('' + stage !== level) return <></>
-  return <>{children}</>
+  if (!ready) return <Fragment/>
+  if ('' + stage !== level) return <Fragment/>
+  return <Fragment>{children}</Fragment>
 }
 
 const resetMissingVars = () => {

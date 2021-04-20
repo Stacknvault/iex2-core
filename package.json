@@ -1,23 +1,26 @@
 {
   "name": "@stacknvault/iex2-core",
-  "version": "2.0.2-dev",
+  "version": "2.0.7-dev",
   "description": "Package to manage the IEX2 context",
   "author": "Andoni Arostegui",
   "license": "MIT",
   "repository": "Stacknvault/iex2-core",
   "main": "dist/index.jsx",
-  "module": "dist/index.modern.jsx",
-  "source": "src/index.jsx",
+  "module": "dist/index.modern.js",
+  "source": "src/index.js",
   "engines": {
     "node": ">=10"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "@material-ui/core": "^4.11.3",
     "archiver": "^4.0.1",
+    "node-sass": "^5.0.0",
     "open": "^7.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "jsonpath": "^1.1.0"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
