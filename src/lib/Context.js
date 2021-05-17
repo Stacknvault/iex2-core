@@ -231,7 +231,7 @@ const Context = ({children}) => {
 
   useEffect(fetchContext, [])
   if (!ready) {
-    return <></>
+    return <React.Fragment></React.Fragment>
   }
   const {stage} = iex
 
@@ -254,9 +254,9 @@ const Context = ({children}) => {
 const Stage = ({level, children}) => {
   const {iex, ready} = useContext(ContextStore)
   const {stage} = iex
-  if (!ready) return <></>
-  if ('' + stage !== level) return <></>
-  return <>{children}</>
+  if (!ready) return <React.Fragment></React.Fragment>
+  if ('' + stage !== level) return <React.Fragment></React.Fragment>
+  return <React.Fragment>{children}</React.Fragment>
 }
 
 const resetMissingVars = () => {
