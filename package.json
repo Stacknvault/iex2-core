@@ -1,6 +1,6 @@
 {
   "name": "@stacknvault/iex2-core",
-  "version": "2.1.1-dev",
+  "version": "2.1.3-dev",
   "description": "Package to manage the IEX2 context",
   "author": "Andoni Arostegui",
   "license": "MIT",
@@ -12,15 +12,13 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@emotion/core": "^11.0.0",
-    "@material-ui/core": "^4.11.4",
     "archiver": "^5.3.0",
     "jsonpath": "^1.1.0",
-    "node-sass": "^5.0.0",
     "open": "^8.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "axios": "^0.21.1"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
@@ -35,7 +33,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^17.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -43,7 +41,6 @@
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "archiver": "^5.3.0",
-    "axios": "^0.21.1",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^7.26.0",
@@ -56,13 +53,9 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-standard": "^5.0.0",
-    "gh-pages": "^3.1.0",
     "microbundle-crl": "^0.13.8",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^3.4.1"
+    "prettier": "^2.3.0"
   },
   "files": [
     "dist",
