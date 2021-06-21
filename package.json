@@ -1,6 +1,6 @@
 {
   "name": "@stacknvault/iex2-core",
-  "version": "2.1.4-dev",
+  "version": "2.1.5-dev",
   "description": "Package to manage the IEX2 context",
   "author": "Andoni Arostegui",
   "license": "MIT",
@@ -12,13 +12,17 @@
     "node": ">=10"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "archiver": "^5.3.0",
     "jsonpath": "^1.1.0",
     "node-sass": "^5.0.0",
     "open": "^8.0.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-scripts": "^3.4.1",
+    "react-markdown": "^5.0.3",
+    "react-mustache": "^0.1.5",
+    "react-draggable": "^4.4.3",
     "axios": "^0.21.1"
   },
   "scripts": {
@@ -34,7 +38,9 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "node-sass": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

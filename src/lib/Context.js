@@ -65,6 +65,7 @@ const Context = ({children}) => {
   const [contractAcceptances, setContractAcceptances] = useState({})
   const [hostname, setHostname] = useState('')
   const [language, setLanguage] = useState('de')
+  const [customConfig, setCustomConfig] = useState({})
 
   const filterContracts = (contracts) => {
     let filteredContracts = (contracts && contracts
@@ -150,6 +151,7 @@ const Context = ({children}) => {
           const newIex = {...iex}
           newIex.stage++
           setIEX(newIex)
+          setCustomConfig(newIex.config||{})
           fetchContext(true, newIex.stage)
           // for some reason this is not always working
           // setTimeout(()=>window.document.location.reload(), 1000)
@@ -237,6 +239,8 @@ const Context = ({children}) => {
 
   return <ContextStore.Provider value={{
     iex,
+    customConfig,
+    setCustomConfig,
     config,
     ready,
     error,
