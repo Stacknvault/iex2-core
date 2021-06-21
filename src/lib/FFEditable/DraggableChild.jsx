@@ -3,7 +3,7 @@ import React, { useContext, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { ContextStore } from '../Context';
 
-const DraggableChild = ({id, newChildrenTree, moveElement, index, item, dragIndex, setDragIndex}) => {
+export const DraggableChild = ({id, newChildrenTree, moveElement, index, item, dragIndex, setDragIndex}) => {
     const {customConfig, setCustomConfig} = useContext(ContextStore)
     const ref=useRef(null)
     return (
@@ -31,5 +31,3 @@ const DraggableChild = ({id, newChildrenTree, moveElement, index, item, dragInde
         </Draggable>
     );
 }
-
-export default DraggableChild;

@@ -2,7 +2,7 @@ import { Button, Modal, TextField } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { ContextStore } from '../Context';
 
-const EditChildModal = ({id, currentId, setCurrentId, currentTitle, setCurrentTitle}) => {
+export const EditChildModal = ({id, currentId, setCurrentId, currentTitle, setCurrentTitle}) => {
     const {iex, customConfig, setCustomConfig} = useContext(ContextStore)
     return (
         <Modal style={{
@@ -33,5 +33,3 @@ const EditChildModal = ({id, currentId, setCurrentId, currentTitle, setCurrentTi
         </Modal>
     );
 }
-
-export default EditChildModal;

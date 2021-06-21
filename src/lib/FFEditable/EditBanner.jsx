@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { ContextStore } from '../Context';
 
-const EditBanner = ({children, id, index, setCurrentTitle, setCurrentId, item, config}) => {
+export const EditBanner = ({children, id, index, setCurrentTitle, setCurrentId, item, config}) => {
     let divStyle = {outline: '4px dotted red'};
     const {iex, customConfig, setCustomConfig} = useContext(ContextStore)
     return (
@@ -23,5 +23,3 @@ const EditBanner = ({children, id, index, setCurrentTitle, setCurrentId, item, c
         </div>
     );
 }
-
-export default EditBanner;

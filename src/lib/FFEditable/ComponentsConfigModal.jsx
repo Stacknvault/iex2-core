@@ -2,7 +2,7 @@ import { Button, Checkbox, FormControlLabel, Modal, TextField } from '@material-
 import React, { useContext } from 'react';
 import { ContextStore } from '../Context';
 
-const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar}) => {
+export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar}) => {
     const {customConfig, setCustomConfig} = useContext(ContextStore)
     const sectionConfig=customConfig[id];
     return (
@@ -92,5 +92,3 @@ const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar}) => {
         </Modal>
     );
 }
-
-export default ComponentsConfigModal;
