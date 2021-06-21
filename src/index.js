@@ -1,2 +1,13 @@
-export {Context, ContextStore, Stage, ffmap, getExternalConfig, resetMissingVars, flattenEntity, supportedLanguages} from './lib/Context';
-export {ffmd, currency} from './lib/FormatUtils';
+export {
+  Context,
+  ContextStore,
+  Stage,
+  ffmap,
+  getExternalConfig,
+  resetMissingVars,
+  flattenEntity,
+  supportedLanguages,
+  getBackendUrl,
+  getExposeId,
+} from './lib/Context'
+export {ffmd, currency} from './lib/FormatUtils'
