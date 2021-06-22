@@ -13,4 +13,3 @@ export {
 export {ffmd, currency} from './lib/FormatUtils'
 
 export {FFEditable}  from './lib/FFEditable/FFEditable'
-export { Foo } from './lib/Foo'

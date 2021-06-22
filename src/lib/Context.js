@@ -67,6 +67,19 @@ const Context = ({children}) => {
   const [language, setLanguage] = useState('de')
   const [customConfig, setCustomConfig] = useState({})
 
+  const updateCustomConfig = (newCustomConfig) => {
+    setCustomConfig(newCustomConfig);
+    try {
+        if (window.opener) {
+            console.log('posting message...');
+            // postRobot.send(window.opener, 'expose-configurator', _customConfig);
+            window.opener.postMessage({ eventName: 'expose-configuration', data: newCustomConfig }, '*') // '*' is "parent url"
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+
+  }
   const filterContracts = (contracts) => {
     let filteredContracts = (contracts && contracts
       .filter((item) => {
@@ -225,6 +238,7 @@ const Context = ({children}) => {
             setReady(true)
             // we apply the field mappings here
             const mappings = config.fieldMapping;
+            setCustomConfig(iex.config||{})
             setIEX(applyMappings(iex, mappings));
           }, reportError)
       }, reportError)
@@ -240,7 +254,7 @@ const Context = ({children}) => {
   return <ContextStore.Provider value={{
     iex,
     customConfig,
-    setCustomConfig,
+    updateCustomConfig,
     config,
     ready,
     error,

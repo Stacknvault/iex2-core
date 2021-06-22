@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { ContextStore } from '../Context';
 
 export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar}) => {
-    const {customConfig, setCustomConfig} = useContext(ContextStore)
+    const {customConfig, updateCustomConfig} = useContext(ContextStore)
     const sectionConfig=customConfig[id];
     return (
         <Modal style={{
@@ -36,7 +36,7 @@ export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar
                                                             control={<TextField fullWidth={true} value={sectionConfigKey[subkey]} onChange={(e)=>{
                                                                 let _customConfig={...customConfig};
                                                                 _customConfig[id][key][subkey]=e.target.value;
-                                                                setCustomConfig(_customConfig);
+                                                                updateCustomConfig(_customConfig);
                                                             }}/>}
                                                             label={subkey}
                                                             />
@@ -51,7 +51,7 @@ export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar
                                                                     if (typeof n === 'number' && ''+n !== 'NaN'){
                                                                         let _customConfig={...customConfig};
                                                                         _customConfig[id][key][subkey]=n;
-                                                                        setCustomConfig(_customConfig);
+                                                                        updateCustomConfig(_customConfig);
                                                                     }
                                                                 }catch(e){}
                                                             }}/>}
@@ -68,7 +68,7 @@ export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar
                                                                 onChange={(e, value)=>{
                                                                     let _customConfig={...customConfig};
                                                                     _customConfig[id][key][subkey]=value;
-                                                                    setCustomConfig(_customConfig);
+                                                                    updateCustomConfig(_customConfig);
                                                                 }}/>}
                                                                 label={subkey}
                                                         />
