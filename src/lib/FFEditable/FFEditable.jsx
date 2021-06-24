@@ -45,7 +45,6 @@ const FFEditable= (props) => {
     const [dragIndex, setDragIndex]=useState(-1); 
     const [showToolbar, setShowToolbar]=useState(false);
     // const [customConfig, updateCustomConfig]=useState((iex.config && iex.config[id]))
-    const [currentTitle, setCurrentTitle] = useState(null);
     const [currentId, setCurrentId] = useState(null);
 
 
@@ -114,20 +113,6 @@ const FFEditable= (props) => {
         <DraggableChild key={`drag-${id}-${index}-${title}`} id={id} newChildrenTree={newChildrenTree} moveElement={moveElement} index={index} item={item} dragIndex={dragIndex} setDragIndex={setDragIndex}/>
     );
 
-    
-
-    const addEditBannerAndChild = (config, item, index) => {
-        let _child = item.child;
-        if (_child && _child.props && _child.props.title && _child.props.title!==config.title){
-            _child=React.cloneElement(_child, {..._child.props, title: config.title});
-        }
-        return (
-            <EditBanner id={id} index={index} setCurrentTitle={setCurrentTitle} setCurrentId={setCurrentId} item={item} config={config} configurator={_child.props.configurator}>
-                {_child}
-            </EditBanner>
-        )
-    }
-
     if (children && children.map){
         let newChildrenTree=[];
         return (
@@ -144,29 +129,25 @@ const FFEditable= (props) => {
                     return {id: child.props.id, config: customConfig[id][child.props.id], child}
                 })
                 .sort((item1, item2)=>{
-                    return item1.config.index - item2.config.index
+                    return item1.config && item2.config && item1.config.index - item2.config.index
                 })
                 .map((item, index)=>{
                     const config = item.config;
                     EDIT_MODE && addDraggables(newChildrenTree, index, item)
-                    if (config.hidden){
-                        return (<React.Fragment key={`ffedit-${id}-${title}-${index}`}/>)
-                    }else {
-                        let _child = item.child;
-                        if (_child && _child.props && _child.props.title && _child.props.title!==config.title){
-                            _child=React.cloneElement(_child, {..._child.props, key:`ffedit-${id}-${title}-${index}`, title: config.title});//!!! maybe we need to do a deep clone to make effect
-                        }
-                        if (EDIT_MODE){
-                            return (
-                                <EditBanner configurator={_child.props.configurator} key={`banner-${id}-${title}-${index}`} id={id} index={index} setCurrentTitle={setCurrentTitle} setCurrentId={setCurrentId} item={item} config={config}>
-                                    {_child}
-                                </EditBanner>
-                            )
-                        } else{
-                            return _child;
+                    if (EDIT_MODE) {
+                        const _child=React.cloneElement(item.child, {...item.child.props, key:`ffedit-${id}-${title}-${index}`, configuration: config || {}});
+                        return (
+                            <EditBanner totalCount={children.length} title={_child.props.title} configurator={_child.props.configurator} key={`banner-${id}-${title}-${index}`} id={id} index={index} setCurrentId={setCurrentId} item={item} config={config}>
+                               {_child}
+                            </EditBanner>
+                        );
+                    } else {
+                        if (config && config.hidden){
+                            return <React.Fragment key={`ffedit-${id}-${title}-${index}`}/>
+                        } else {
+                            return item.child;
                         }
                     }
-                    
                 })
                 }
             </MuiThemeProvider>

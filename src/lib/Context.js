@@ -67,13 +67,27 @@ const Context = ({children}) => {
   const [language, setLanguage] = useState('de')
   const [customConfig, setCustomConfig] = useState({})
 
+  const getMessages = (event) => {
+    if (event.data.eventName) {
+      // let's see if it's a configuration event
+      if (event.data.eventName === 'expose-configuration') {
+        setCustomConfig(event.data.data);
+      }
+  }
+  }
+  useEffect(() => {
+    window.addEventListener('message', getMessages);
+    return () => window.removeEventListener('message', getMessages);
+  }, []);
+
   const updateCustomConfig = (newCustomConfig) => {
     setCustomConfig(newCustomConfig);
     try {
-        if (window.opener) {
+        const w = window.opener || window.parent;
+        if (w) {
             console.log('posting message...');
             // postRobot.send(window.opener, 'expose-configurator', _customConfig);
-            window.opener.postMessage({ eventName: 'expose-configuration', data: newCustomConfig }, '*') // '*' is "parent url"
+            w.postMessage({ eventName: 'expose-configuration', data: newCustomConfig }, '*') // '*' is "parent url"
         }
     } catch (e) {
         console.warn(e);
