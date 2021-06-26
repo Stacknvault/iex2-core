@@ -69,8 +69,9 @@ const Context = ({children}) => {
 
   const getMessages = (event) => {
     if (event.data.eventName) {
+      console.log('gotten message on expose', event.data);
       // let's see if it's a configuration event
-      if (event.data.eventName === 'expose-configuration') {
+      if (event.data.eventName === 'set-expose-configuration-on-expose') {
         setCustomConfig(event.data.data);
       }
   }
@@ -87,7 +88,7 @@ const Context = ({children}) => {
         if (w) {
             console.log('posting message...');
             // postRobot.send(window.opener, 'expose-configurator', _customConfig);
-            w.postMessage({ eventName: 'expose-configuration', data: newCustomConfig }, '*') // '*' is "parent url"
+            w.postMessage({ eventName: 'set-expose-configuration-on-dashboard', data: newCustomConfig }, '*') // '*' is "parent url"
         }
     } catch (e) {
         console.warn(e);
@@ -268,7 +269,8 @@ const Context = ({children}) => {
   return <ContextStore.Provider value={{
     iex,
     customConfig,
-    updateCustomConfig,
+    setCustomConfig,//just sets the config
+    updateCustomConfig,// sets config and sends update message to parent window
     config,
     ready,
     error,

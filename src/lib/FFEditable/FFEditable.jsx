@@ -41,7 +41,7 @@ const FFEditable= (props) => {
     if (!children.map){
         children=[children];
     }
-    const {customConfig, updateCustomConfig} = useContext(ContextStore)
+    const {customConfig, setCustomConfig, updateCustomConfig} = useContext(ContextStore)
     const [dragIndex, setDragIndex]=useState(-1); 
     const [showToolbar, setShowToolbar]=useState(false);
     // const [customConfig, updateCustomConfig]=useState((iex.config && iex.config[id]))
@@ -104,7 +104,7 @@ const FFEditable= (props) => {
             }
         });
         if (changes){
-            updateCustomConfig(_customConfig);
+            setCustomConfig(_customConfig);
         }
         
     }, [children, customConfig, id, updateCustomConfig])
