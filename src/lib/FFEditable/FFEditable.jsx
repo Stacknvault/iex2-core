@@ -134,8 +134,8 @@ const FFEditable= (props) => {
                 .map((item, index)=>{
                     const config = item.config;
                     EDIT_MODE && addDraggables(newChildrenTree, index, item)
+                    const _child=React.cloneElement(item.child, {...item.child.props, key:`ffedit-${id}-${title}-${index}`, configuration: config || {}});
                     if (EDIT_MODE) {
-                        const _child=React.cloneElement(item.child, {...item.child.props, key:`ffedit-${id}-${title}-${index}`, configuration: config || {}});
                         return (
                             <EditBanner totalCount={children.length} title={_child.props.title} configurator={_child.props.configurator} key={`banner-${id}-${title}-${index}`} id={id} index={index} setCurrentId={setCurrentId} item={item} config={config}>
                                {_child}
@@ -145,7 +145,7 @@ const FFEditable= (props) => {
                         if (config && config.hidden){
                             return <React.Fragment key={`ffedit-${id}-${title}-${index}`}/>
                         } else {
-                            return item.child;
+                            return _child;
                         }
                     }
                 })
