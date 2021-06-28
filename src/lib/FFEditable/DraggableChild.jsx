@@ -1,28 +1,30 @@
-import { Checkbox } from '@material-ui/core';
-import React, { useContext, useRef } from 'react';
-import Draggable from 'react-draggable';
-import { ContextStore } from '../Context';
-import { makeStyles } from '@material-ui/styles';
+import {Checkbox} from '@material-ui/core'
+import React, {useContext, useRef} from 'react'
+import Draggable from 'react-draggable'
+import {ContextStore} from '../Context'
+import {makeStyles} from '@material-ui/styles'
 
 const useStyles = makeStyles(
     (theme) => ({
         root: {},
         divStatic: {
-            margin: 4, 
-            cursor: 'move', 
-            height: 40, 
-            border: '1px solid #cccccc',
-            fontFamily: 'Roboto Condensed', 
-            backgroundColor: 'white' 
+          marginTop: 4,
+          cursor: 'move',
+          padding: 0,
+          border: '1px solid #ccc',
+          fontFamily: 'Roboto Condensed',
+          backgroundColor: '#fff',
+          color: '#555',
         },
         divDragging: {
-            margin: 4, 
-            cursor: 'move', 
-            height: 40, 
-            border: '1px solid #cccccc',
-            fontFamily: 'Roboto Condensed', 
-            backgroundColor: '#ccccff',
-            zIndex: 1000,
+          marginTop: 4,
+          cursor: 'move',
+          padding: 0,
+          border: '1px solid #ccc',
+          fontFamily: 'Roboto Condensed',
+          backgroundColor: '#f1f1f1',
+          color: '#555',
+          zIndex: 1000000,
         }
         
     }),

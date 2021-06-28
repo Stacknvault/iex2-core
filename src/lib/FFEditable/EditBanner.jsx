@@ -1,13 +1,13 @@
-import { Button } from '@material-ui/core';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { ContextStore } from '../Context';
-import { EditChildModal } from './EditChildModal';
-import SettingsIcon from '@material-ui/icons/Settings';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import {Button} from '@material-ui/core'
+import React, {useCallback, useContext, useMemo, useState} from 'react'
+import {ContextStore} from '../Context'
+import {EditChildModal} from './EditChildModal'
+import SettingsIcon from '@material-ui/icons/Settings'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 
 export const EditBanner = ({title, totalCount, children, id, index, item, configurator}) => {
-    let divStyle = {outline: '4px dotted red'};
+    let divStyle = {outline: '4px dotted yellow'}
     const {iex, customConfig, updateCustomConfig} = useContext(ContextStore)
     const [isOpen, setOpen] = useState(false);
     const close = () => setOpen(false);
