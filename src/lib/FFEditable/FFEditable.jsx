@@ -1,45 +1,61 @@
-import { Button, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react'
-import { ComponentsConfigModal } from './ComponentsConfigModal'
-import { EditBanner } from './EditBanner';
+import {Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import React, {useContext, useEffect, useState} from 'react'
+import {ComponentsConfigModal} from './ComponentsConfigModal'
+import {EditBanner} from './EditBanner'
 import {ContextStore, getExternalConfig} from '../Context'
-import { DraggableChild } from './DraggableChild';
+import {DraggableChild} from './DraggableChild'
 import './FFeditable.scss'
-const externalConfig = getExternalConfig();
-const moveArray = (arr, pos1,pos2) => {
-    // local variables
-    var i, tmp;
-    // cast input parameters to integers
-    // if positions are different and inside array
-    if (pos1 !== pos2 && 0 <= pos1 && pos1 <= arr.length && 0 <= pos2 && pos2 <= arr.length) {
-      // save element from position 1
-      tmp = arr[pos1];
-      // move element down and shift other elements up
-      if (pos1 < pos2) {
-        for (i = pos1; i < pos2; i++) {
-            arr[i] = arr[i + 1];
-        }
+import {makeStyles} from '@material-ui/styles'
+
+const externalConfig = getExternalConfig()
+const moveArray = (arr, pos1, pos2) => {
+  // local variables
+  var i, tmp
+  // cast input parameters to integers
+  // if positions are different and inside array
+  if (pos1 !== pos2 && 0 <= pos1 && pos1 <= arr.length && 0 <= pos2 && pos2 <= arr.length) {
+    // save element from position 1
+    tmp = arr[pos1]
+    // move element down and shift other elements up
+    if (pos1 < pos2) {
+      for (i = pos1; i < pos2; i++) {
+        arr[i] = arr[i + 1]
       }
-      // move element up and shift other elements down
-      else {
-        for (i = pos1; i > pos2; i--) {
-            arr[i] = arr[i - 1];
-        }
-      }
-      // put element from position 1 to destination
-      arr[pos2] = tmp;
     }
-    return arr;
-  };
-  
-const FFEditable= (props) => {
-    const { id, title, controls, theme } = props;
-    const EDIT_MODE=externalConfig && externalConfig.editMode && controls;
-    // const EDIT_MODE=controls;
-    let { children } = props;
-    // in case it's single child
-    if (!children.map){
-        children=[children];
+    // move element up and shift other elements down
+    else {
+      for (i = pos1; i > pos2; i--) {
+        arr[i] = arr[i - 1]
+      }
+    }
+    // put element from position 1 to destination
+    arr[pos2] = tmp
+  }
+  return arr
+};
+
+const useStyles = makeStyles(
+  () => ({
+    root: {
+      padding: 10,
+      width: '100%',
+      maxWidth: 1200,
+      margin: '0 auto',
+      textAlign: 'center',
+    },
+  }),
+  {name: 'FFEditable'},
+)
+
+const FFEditable = (props) => {
+  const {id, title, controls, theme} = props
+  const EDIT_MODE = externalConfig && externalConfig.editMode && controls
+  const classes = useStyles()
+  // const EDIT_MODE=controls;
+  let {children} = props
+  // in case it's single child
+  if (!children.map) {
+    children = [children]
     }
     const {customConfig, setCustomConfig, updateCustomConfig} = useContext(ContextStore)
     const [dragIndex, setDragIndex]=useState(-1); 
@@ -53,7 +69,7 @@ const FFEditable= (props) => {
     palette: {
       primary: {
         main: theme.brand.colors.primary,
-        contrastText: theme.brand.colors.primaryText,
+        contrastText: theme.brand.colors.secondary,
       },
       secondary: {
         main: theme.brand.colors.secondary,
@@ -116,22 +132,25 @@ const FFEditable= (props) => {
     if (children && children.map){
         let newChildrenTree=[];
         return (
-            <MuiThemeProvider theme={muiTheme} key={`ffedit-${id}-${title}`}>
-                {EDIT_MODE && 
-                    <div className='hideOnPrint'>
-                        <ComponentsConfigModal id={id} showToolbar={showToolbar} setShowToolbar={setShowToolbar}>{newChildrenTree}</ComponentsConfigModal>
-                        <Button onClick={()=>setShowToolbar(true)}>Configure {title || 'Sections'}</Button>
-                    </div>            
-                }
-                
-                {customConfig && customConfig[id] && children && children
-                .map((child)=>{
-                    return {id: child.props.id, config: customConfig[id][child.props.id], child}
-                })
-                .sort((item1, item2)=>{
-                    return item1.config && item2.config && item1.config.index - item2.config.index
-                })
-                .map((item, index)=>{
+          <MuiThemeProvider theme={muiTheme} key={`ffedit-${id}-${title}`}>
+            {EDIT_MODE &&
+            <div className={`${classes.root} hideOnPrint`}>
+              <ComponentsConfigModal id={id} showToolbar={showToolbar}
+                                     setShowToolbar={setShowToolbar}>{newChildrenTree}</ComponentsConfigModal>
+              <Button color="primary"
+                      variant='contained'
+                      onClick={() => setShowToolbar(true)}>Configure {title || 'Sections'}</Button>
+            </div>
+            }
+
+            {customConfig && customConfig[id] && children && children
+              .map((child) => {
+                return {id: child.props.id, config: customConfig[id][child.props.id], child}
+              })
+              .sort((item1, item2) => {
+                return item1.config && item2.config && item1.config.index - item2.config.index
+              })
+              .map((item, index) => {
                     const config = item.config;
                     EDIT_MODE && addDraggables(newChildrenTree, index, item)
                     const _child=React.cloneElement(item.child, {...item.child.props, key:`ffedit-${id}-${title}-${index}`, configuration: config || {}});

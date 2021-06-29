@@ -31,6 +31,11 @@ const useStyles = makeStyles(
       marginBottom: 0,
       color: '#555',
     },
+    btn: {
+      maxWidth: 350,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   }),
 { name: 'ComponentsConfigModal' }
 );
@@ -51,14 +56,12 @@ export const ComponentsConfigModal = ({id, children, showToolbar, setShowToolbar
             {/*      </div>*/}
             {/*  </div>*/}
           </div>
-            <Button
-              onClick={() => {
-                setShowToolbar(false)
-              }}
-              color="primary"
-              variant='contained'>
-              Close</Button>
-          </div>
+          <Button
+            onClick={() => setShowToolbar(false)}
+            color="primary"
+            variant='contained'
+            className={classes.btn}>Close</Button>
+        </div>
       </Modal>
     );
 }

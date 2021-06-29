@@ -47,14 +47,15 @@ export const DraggableChild = ({ id, newChildrenTree, moveElement, index, item, 
             }}
             disabled={false}
             position={{ x: 0, y: 0 }}>
-            <div className={ dragIndex === index ? classes.divDragging : classes.divStatic } >
-                <Checkbox
-                    checked={!item.config.hidden}
-                    onChange={(e, value) => {
-                        let _customConfig = { ...customConfig }
-                        _customConfig[id][item.id].hidden = !value;
-                        updateCustomConfig(_customConfig);
-                    }} /> {item.child.props.title}
+            <div className={dragIndex === index ? classes.divDragging : classes.divStatic}>
+              <Checkbox
+                checked={!item.config.hidden}
+                onChange={(e, value) => {
+                  let _customConfig = {...customConfig}
+                  _customConfig[id][item.id].hidden = !value
+                  updateCustomConfig(_customConfig)
+                }}
+                color='primary'/> {item.child.props.title}
             </div>
         </Draggable>
     );
